@@ -12,25 +12,45 @@ export class Task {
   id: string;
 
   @Column("text")
-  task: string;
+  name: string;
+
+  @Column("text")
+  description: string;
 
   @Column("timestamp", {
     nullable: true,
   })
-  createdAt: Date;
+  startDate: Date;
 
   @Column("timestamp", {
     nullable: true,
   })
-  updatedAt: Date;
+  completedDate: Date;
+
+  @Column("timestamp", {
+    nullable: true,
+  })
+  dueDate: Date;
+
+  @Column("timestamp", {
+    nullable: true,
+  })
+  createdDate: Date;
+
+  @Column("timestamp", {
+    nullable: true,
+  })
+  updatedDate: Date;
 
   @BeforeInsert()
   setCreatedTime() {
-    this.createdAt = new Date();
+    const date = new Date();
+    this.createdDate = date;
+    this.startDate = date;
   }
 
   @BeforeUpdate()
   setUpdatedTime() {
-    this.updatedAt = new Date();
+    this.updatedDate = new Date();
   }
 }
