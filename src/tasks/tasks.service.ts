@@ -67,10 +67,10 @@ export class TasksService {
     });
   }
 
-  private async checkUserTask(id: string, userId: string): Promise<boolean> {
+  private async checkUserTask(idTask: string, userId: string): Promise<boolean> {
     const taskFromDB = await this.taskRepo.findOne({
       where: {
-        id: id,
+        id: idTask,
       },
       relations: {
         user: true,
@@ -78,7 +78,7 @@ export class TasksService {
     });
 
     if (!taskFromDB) {
-      throw new NotFoundException(`Task with id: ${id} not found`);
+      throw new NotFoundException(`Task with id: ${idTask} not found`);
     }
 
     if (taskFromDB.user.id !== userId) {

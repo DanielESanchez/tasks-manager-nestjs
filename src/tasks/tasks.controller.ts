@@ -8,14 +8,12 @@ import {
   Delete,
   ParseUUIDPipe,
   Query,
-  UseGuards,
 } from "@nestjs/common";
 import { TasksService } from "./tasks.service";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
 import { Auth, GetUser } from "src/auth/decorators";
 import { User } from "src/auth/entities/user.entity";
-import { AuthGuard } from "@nestjs/passport";
 import { ValidRoles } from "src/auth/interfaces";
 
 @Controller("tasks")
