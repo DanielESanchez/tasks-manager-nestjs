@@ -4,12 +4,12 @@ import { IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator";
 export class CreateTaskDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(5)
+  @MinLength(2)
   name: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(5)
+  @MinLength(2)
   description: string;
 
   @IsOptional()

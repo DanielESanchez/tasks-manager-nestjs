@@ -1,8 +1,10 @@
+import { User } from "src/auth/entities/user.entity";
 import {
   BeforeInsert,
   BeforeUpdate,
   Column,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 
@@ -41,6 +43,13 @@ export class Task {
     nullable: true,
   })
   updatedDate: Date;
+
+  @ManyToOne(
+    () => User, 
+    (user) => user.task, 
+    { eager: true }
+  )
+  user: User;
 
   @BeforeInsert()
   setCreatedTime() {

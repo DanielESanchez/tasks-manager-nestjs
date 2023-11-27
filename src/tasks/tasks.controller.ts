@@ -1,39 +1,69 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Query } from '@nestjs/common';
-import { TasksService } from './tasks.service';
-import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+  Query,
+  UseGuards,
+} from "@nestjs/common";
+import { TasksService } from "./tasks.service";
+import { CreateTaskDto } from "./dto/create-task.dto";
+import { UpdateTaskDto } from "./dto/update-task.dto";
+import { Auth, GetUser } from "src/auth/decorators";
+import { User } from "src/auth/entities/user.entity";
+import { AuthGuard } from "@nestjs/passport";
+import { ValidRoles } from "src/auth/interfaces";
 
-@Controller('tasks')
+@Controller("tasks")
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService.create(createTaskDto);
+  @Auth()
+  create(@Body() createTaskDto: CreateTaskDto, @GetUser() user: User) {
+    return this.tasksService.create(createTaskDto, user);
   }
 
   @Get()
+  @Auth(ValidRoles.admin)
   findAll() {
     return this.tasksService.findAll();
   }
 
-  @Get("search")
-  findByFilter(@Query("q") query) {
-    return this.tasksService.filterTask(query);
+  @Get("user")
+  @Auth()
+  findAllForUser(@GetUser() user: User) {
+    return this.tasksService.findAllTasksForUser(user);
   }
 
-  @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
+  @Get("search")
+  @Auth()
+  findByFilter(@Query("q") query: string, @GetUser() user: User) {
+    return this.tasksService.filterTask(query, user);
+  }
+
+  @Get(":id")
+  findOne(@Param("id", ParseUUIDPipe) id: string) {
     return this.tasksService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id', ParseUUIDPipe) id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.tasksService.update(id, updateTaskDto);
+  @Patch(":id")
+  @Auth()
+  update(
+    @Param("id", ParseUUIDPipe) id: string,
+    @Body() updateTaskDto: UpdateTaskDto,
+    @GetUser() user: User
+  ) {
+    return this.tasksService.update(id, updateTaskDto, user);
   }
 
-  @Delete(':id')
-  remove(@Param('id',ParseUUIDPipe) id: string) {
-    return this.tasksService.remove(id);
+  @Delete(":id")
+  @Auth()
+  remove(@Param("id", ParseUUIDPipe) id: string, @GetUser() user: User) {
+    return this.tasksService.remove(id, user);
   }
 }
