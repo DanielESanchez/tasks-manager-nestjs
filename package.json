@@ -27,6 +27,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/passport": "^10.0.2",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/swagger": "^7.1.16",
     "@nestjs/typeorm": "^10.0.1",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
@@ -80,6 +81,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "moduleDirectories": ["node_modules"]
+    "moduleDirectories": [
+      "node_modules"
+    ]
   }
 }
