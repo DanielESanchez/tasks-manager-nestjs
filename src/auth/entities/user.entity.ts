@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Task } from 'src/tasks/entities/task.entity';
 import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -5,9 +6,11 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGenerated
 @Entity('users')
 export class User {
     
+    @ApiProperty()
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
+    @ApiProperty()
     @Column('text', {
         unique: true
     })
@@ -18,14 +21,17 @@ export class User {
     })
     password: string;
 
+    @ApiProperty()
     @Column('text')
     fullName: string;
 
+    @ApiProperty()
     @Column('bool', {
         default: true
     })
     isActive: boolean;
 
+    @ApiProperty()
     @Column('text', {
         array: true,
         default: ['user']

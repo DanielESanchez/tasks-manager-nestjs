@@ -109,7 +109,6 @@ describe("AuthService", () => {
       const result = await authService.login(loginUserDto);
 
       expect(result).toEqual({
-        ...userMock,
         token: "mockedToken"
       });
     });

@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { User } from "src/auth/entities/user.entity";
 import {
   BeforeInsert,
@@ -10,40 +11,49 @@ import {
 
 @Entity({ name: "tasks" })
 export class Task {
+  @ApiProperty()
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @ApiProperty()
   @Column("text")
   name: string;
 
+  @ApiProperty()
   @Column("text")
   description: string;
 
+  @ApiProperty()
   @Column("timestamp", {
     nullable: true,
   })
   startDate: Date;
 
+  @ApiProperty()
   @Column("timestamp", {
     nullable: true,
   })
   completedDate: Date;
 
+  @ApiProperty()
   @Column("timestamp", {
     nullable: true,
   })
   dueDate: Date;
 
+  @ApiProperty()
   @Column("timestamp", {
     nullable: true,
   })
   createdDate: Date;
 
+  @ApiProperty()
   @Column("timestamp", {
     nullable: true,
   })
   updatedDate: Date;
 
+  @ApiProperty()
   @ManyToOne(
     () => User, 
     (user) => user.task, 

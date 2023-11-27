@@ -27,7 +27,7 @@ export class CreateTaskDto {
     description: 'String date when the task started',
     minimum: 2,
     required: false,
-    default: "Date when the task is saved"
+    default: new Date()
   })
   @IsOptional()
   @Type(() => Date)

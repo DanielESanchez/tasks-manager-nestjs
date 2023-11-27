@@ -58,7 +58,6 @@ export class AuthService {
       throw new UnauthorizedException('Credentials are not valid (password)');
 
     return {
-      ...user,
       token: this.getJwtToken({ id: user.id })
     };
   }
@@ -76,7 +75,7 @@ export class AuthService {
     if ( error.code === '23505' ) 
       throw new BadRequestException( error.detail );
 
-    throw new InternalServerErrorException('Please check server logs');
+    throw new InternalServerErrorException(error.detail);
 
   }
 }
