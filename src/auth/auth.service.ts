@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
+  Logger,
   UnauthorizedException,
 } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -15,6 +16,7 @@ import { JwtPayload, ValidRoles } from "./interfaces";
 
 @Injectable()
 export class AuthService {
+  private logger = new Logger("AuthService");
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -47,10 +49,10 @@ export class AuthService {
       const admin = new User();
       admin.email = "admin@admin.adm";
       admin.password = bcrypt.hashSync("Admin1234", 10);
-      admin.fullName = "Admin"
+      admin.fullName = "Admin";
       admin.roles = [ValidRoles.admin, ValidRoles.user];
       await this.userRepository.save(admin);
-      return "Admin created"
+      return "Admin created";
     } catch (error) {
       this.handleDBErrors(error);
     }
@@ -83,6 +85,7 @@ export class AuthService {
   private handleDBErrors(error: any): never {
     if (error.code === "23505") throw new BadRequestException(error.detail);
 
+    this.logger.error(error);
     throw new InternalServerErrorException(error.detail);
   }
 }

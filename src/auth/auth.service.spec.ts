@@ -109,7 +109,7 @@ describe("AuthService", () => {
       const result = await authService.login(loginUserDto);
 
       expect(result).toEqual({
-        token: "mockedToken"
+        token: "mockedToken",
       });
     });
 
@@ -127,20 +127,20 @@ describe("AuthService", () => {
     });
 
     it("should handle unauthorized login password", async () => {
-        const loginUserDto: LoginUserDto = {
-          email: "test@example.com",
-          password: "Test1234",
-        };
-  
-        const userMock = new User();
-        userMock.id = "1";
-        userMock.email = loginUserDto.email;
-        userMock.password = loginUserDto.password;
-        userMock.fullName = "Test user";
-        userMock.isActive = true;
-        userMock.roles = ["user"];
-  
-        jest.spyOn(userRepository, "findOne").mockResolvedValue(userMock);
+      const loginUserDto: LoginUserDto = {
+        email: "test@example.com",
+        password: "Test1234",
+      };
+
+      const userMock = new User();
+      userMock.id = "1";
+      userMock.email = loginUserDto.email;
+      userMock.password = loginUserDto.password;
+      userMock.fullName = "Test user";
+      userMock.isActive = true;
+      userMock.roles = ["user"];
+
+      jest.spyOn(userRepository, "findOne").mockResolvedValue(userMock);
 
       await expect(authService.login(loginUserDto)).rejects.toThrow(
         UnauthorizedException
@@ -158,6 +158,27 @@ describe("AuthService", () => {
       });
 
       await expect(authService.login(loginUserDto)).rejects.toThrow(
+        InternalServerErrorException
+      );
+    });
+  });
+
+  describe("createAdmin", () => {
+    it("should create an admin user", async () => {
+      const saveSpy = jest.spyOn(userRepository, "save");
+
+      await authService.createAdmin();
+
+      expect(saveSpy).toHaveBeenCalled();
+      expect(saveSpy).toHaveBeenCalledWith(expect.any(User)); 
+    });
+
+    it("should throw error", async () => {
+      jest.spyOn(userRepository, "save").mockImplementation(() => {
+        throw new InternalServerErrorException();
+      });
+
+      await expect(authService.createAdmin()).rejects.toThrow(
         InternalServerErrorException
       );
     });
