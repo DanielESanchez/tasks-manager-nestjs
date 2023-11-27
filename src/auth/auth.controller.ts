@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from "@nestjs/common";
+import { Controller, Post, Body, Get } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
@@ -38,6 +38,19 @@ export class AuthController {
   })
   createUser(@Body() createUserDto: CreateUserDto) {
     return this.authService.create(createUserDto);
+  }
+
+  @Get("admin")
+  @ApiOkResponse({
+    description: "Admin user created",
+    type: String,
+  })
+  @ApiInternalServerErrorResponse({
+    description: "Internal error",
+    type: ErrorResponse,
+  })
+  createAdminUser() {
+    return this.authService.createAdmin();
   }
 
   @Post("login")
