@@ -5,69 +5,91 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+  # Task Manager API
+Rest API to manage tasks for users.
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Cloning repository
+
 
 ```bash
-$ npm install
+  git clone https://github.com/DanielESanchez/tasks-mannager-nestjs.git
+```
+    
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your `.env` file. You can also use the file `.env.template` as reference, or you can rename it to `.env` and edit the values.
+
+`DB_PASSWORD`
+
+`DB_NAME`
+
+`DB_HOST`
+
+`DB_PORT`
+
+`DB_USERNAME`
+
+`API_PREFIX`
+
+`API_VERSION`
+
+`API_PORT`
+
+`JWT_EXPIRATION`_*_
+
+`JWT_SECRET`
+
+_*_ _Valid values examples for_ `JWT_EXPIRATION` are `1d`, `2h`, `3m`, _the letter indicates the time unit_
+
+## Running app
+
+### Prerequisites
+
+- Npm (included in [Node.js Package](https://nodejs.org))
+- Docker and Docker Compose (you can install both from [Docker's the  official website](https://www.docker.com/))
+
+### Production Deployment
+Remember to execute this command inside the project's folder
+```bash
+  cd /path/to/folder/tasks-manager-nestjs
+```
+Start containers
+```bash
+  docker-compose up -d
 ```
 
-## Running the app
+
+## Documentation
+After running the docker-compose command, you will be able to see the documentation for all endpoints using the URL
+
+`{IP}:{PORT}/api/docs` or 
+
+`{DOMAIN}/api/docs` if running in a server already configured to run this app
+
+## Running Tests
+
+To run tests, first install all dependencies
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  npm install ci
 ```
 
-## Test
+Then run command
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+  npm run test
 ```
 
-## Support
+to execute all unit test or
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+  npm run test:cov
+```
 
-## Stay in touch
+to execute all test and see the coverage
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Authors
 
-## License
-
-Nest is [MIT licensed](LICENSE).
+- [@DanielESanchez](https://github.com/DanielESanchez)
