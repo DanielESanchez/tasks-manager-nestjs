@@ -68,6 +68,22 @@ After running the docker-compose command, you will be able to see the documentat
 
 `{DOMAIN}/api/docs` if running in a server already configured to run this app
 
+### Load Admin User
+
+The first time you start the app, you will have to load admin user in order to use endpoints protected with admin role. To do that, you just have to go to the endpoint:
+
+```http
+  GET {API_PREFIX}/v{API_VERSION}/auth/admin
+```
+
+You can see the full path going to the swagger documentation, and you can try it from there.
+
+If it returns created response, then you will be able to login with admin user using the credentials:
+
+`email: admin@admin.adm`
+
+`password: Admin1234`
+
 ## Running Tests
 
 To run tests, first install all dependencies
