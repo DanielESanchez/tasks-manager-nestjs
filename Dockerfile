@@ -22,7 +22,7 @@ FROM node:18-alpine3.15 AS runner
 WORKDIR /usr/src/app
 
 COPY package.json package-lock.json ./
-RUN npm install --production
+RUN npm install --omit=dev
 COPY --from=builder /app/dist ./dist
 
 CMD [ "node","dist/main" ]
