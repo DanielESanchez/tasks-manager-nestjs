@@ -9,7 +9,6 @@ import { ILike } from "typeorm";
 import { User } from "src/auth/entities/user.entity";
 import { getRepositoryToken } from "@nestjs/typeorm";
 
-// Mock the Repository
 class RepositoryMock<T> {
   private data: T[] = [];
 
@@ -191,6 +190,7 @@ describe("TasksService", () => {
       taskMockDifferentUser.name = "Task Mock";
       taskMockDifferentUser.description = "Description Mock";
       taskMockDifferentUser.user = userMockDifferent;
+
       jest.spyOn(taskRepo, "findOne").mockResolvedValue(taskMockDifferentUser);
       jest.spyOn(taskRepo, "preload").mockResolvedValue(taskMock);
       await expect(
@@ -218,7 +218,7 @@ describe("TasksService", () => {
   });
 
   describe('filterTask', () => {
-    it('should filter tasks by description or name', async () => {
+    it('should return tasks by name including value to search', async () => {
       const searchString = 'search';
 
       const tasks = [{ name: 'Task 1' }, { name: 'Task 2' }] as Task[];
@@ -238,7 +238,7 @@ describe("TasksService", () => {
   });
 
   describe('findAllTasksForUser', () => {
-    it('should find all tasks for a user', async () => {
+    it('should return all tasks for a user', async () => {
 
       const tasks = [{ name: 'Task 1' }, { name: 'Task 2' }] as Task[];
 

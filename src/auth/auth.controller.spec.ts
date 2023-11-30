@@ -7,7 +7,7 @@ import { JwtService } from "@nestjs/jwt";
 import { UnauthorizedException } from "@nestjs/common";
 import { User } from "./entities/user.entity";
 
-jest.mock("./auth.service");
+jest.mock("../../src/auth/auth.service");
 jest.mock("@nestjs/jwt");
 
 describe("AuthController", () => {
@@ -61,7 +61,7 @@ describe("AuthController", () => {
       expect(authService.login).toHaveBeenCalledWith(loginUserDto);
     });
 
-    it("should handle unauthorized login attempts", async () => {
+    it("should throw unauthorized login when using invalid credentials", async () => {
       const loginUserDto: LoginUserDto = {
         email: "test@example.com",
         password: "Test1234",

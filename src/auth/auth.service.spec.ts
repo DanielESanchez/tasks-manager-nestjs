@@ -72,7 +72,7 @@ describe("AuthService", () => {
       expect(result).toEqual({ token: "mockedToken" });
     });
 
-    it("should handle errors during user creation", async () => {
+    it("should throw bad request error in register when user exists", async () => {
       const createUserDto: CreateUserDto = {
         email: "test@example.com",
         password: "Test1234",
@@ -113,7 +113,7 @@ describe("AuthService", () => {
       });
     });
 
-    it("should handle unauthorized login attempts", async () => {
+    it("should throw unauthorized login when user not found", async () => {
       const loginUserDto: LoginUserDto = {
         email: "test@example.com",
         password: "Test1234",
@@ -126,7 +126,7 @@ describe("AuthService", () => {
       );
     });
 
-    it("should handle unauthorized login password", async () => {
+    it("should throw unauthorized login when credentials are not valid", async () => {
       const loginUserDto: LoginUserDto = {
         email: "test@example.com",
         password: "Test1234",
@@ -154,7 +154,7 @@ describe("AuthService", () => {
       };
 
       jest.spyOn(userRepository, "findOne").mockImplementation(() => {
-        throw new InternalServerErrorException("Some error occurred");
+        throw new InternalServerErrorException();
       });
 
       await expect(authService.login(loginUserDto)).rejects.toThrow(

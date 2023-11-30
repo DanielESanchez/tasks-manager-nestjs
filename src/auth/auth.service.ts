@@ -24,6 +24,11 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
+  /**
+   *
+   * @param createUserDto information of user to create
+   * @returns object with jwt token
+   */
   async create(createUserDto: CreateUserDto) {
     try {
       const { password, ...userData } = createUserDto;
@@ -44,7 +49,11 @@ export class AuthService {
     }
   }
 
-  async createAdmin() {
+  /**
+   *
+   * @returns string if admin created
+   */
+  async createAdmin(): Promise<string> {
     try {
       const admin = new User();
       admin.email = "admin@admin.adm";
@@ -58,6 +67,11 @@ export class AuthService {
     }
   }
 
+  /**
+   *
+   * @param loginUserDto login information of user
+   * @returns object with jwt token
+   */
   async login(loginUserDto: LoginUserDto) {
     const { password, email } = loginUserDto;
 
@@ -77,11 +91,20 @@ export class AuthService {
     };
   }
 
+  /**
+   *
+   * @param payload payload data to sign the token
+   * @returns jwt token
+   */
   private getJwtToken(payload: JwtPayload) {
     const token = this.jwtService.sign(payload);
     return token;
   }
 
+  /**
+   *
+   * @param error error to handle
+   */
   private handleDBErrors(error: any): never {
     if (error.code === "23505") throw new BadRequestException(error.detail);
 

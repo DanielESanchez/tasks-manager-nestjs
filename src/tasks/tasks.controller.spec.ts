@@ -9,7 +9,7 @@ import { Task } from "./entities/task.entity";
 import { JwtModule } from "@nestjs/jwt";
 import { ConfigModule } from "@nestjs/config";
 
-jest.mock("./tasks.service");
+jest.mock("../../src/tasks/tasks.service");
 
 describe("TasksController", () => {
   let controller: TasksController;
@@ -32,7 +32,7 @@ describe("TasksController", () => {
       controllers: [TasksController],
       providers: [TasksService],
       imports: [
-        PassportModule.register({ defaultStrategy: "jwt" }), // Ensure PassportModule is imported
+        PassportModule.register({ defaultStrategy: "jwt" }), 
         JwtModule.register({
           
         }),
@@ -63,7 +63,7 @@ describe("TasksController", () => {
   });
 
   describe("findAll", () => {
-    it("should get all tasks for admin", async () => {
+    it("should get all tasks", async () => {
       jest.spyOn(tasksService, "findAll").mockResolvedValue([taskMock]);
       const result = await controller.findAll();
       expect(result).toBeDefined();
@@ -84,7 +84,7 @@ describe("TasksController", () => {
   });
 
   describe("findByFilter", () => {
-    it("should filter tasks by query", async () => {
+    it("should get tasks filtered by search value", async () => {
       const query = "searchQuery";
 
       jest.spyOn(tasksService, "filterTask").mockResolvedValue([taskMock]);
@@ -96,7 +96,7 @@ describe("TasksController", () => {
   });
 
   describe("findOne", () => {
-    it("should find a task by id", async () => {
+    it("should get a task by id", async () => {
       const taskId = "123";
 
       jest.spyOn(tasksService, "findOne").mockResolvedValue(taskMock);
